@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace WigenerCipher
+﻿namespace WigenerCipher
 {
     public class WigenerCipherView
     {

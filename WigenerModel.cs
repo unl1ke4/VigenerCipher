@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WigenerCipher
+﻿namespace WigenerCipher
 {
     public class WigenerCipherModel
     {
-         private const string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private const string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         private static char EncryptChar(char c, char k, bool decrypt = false)
         {

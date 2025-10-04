@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WigenerCipher
+﻿namespace WigenerCipher
 {
     public class WigenerCipherController
     {
-         private readonly WigenerCipherModel _model;
+        private readonly WigenerCipherModel _model;
         private readonly WigenerCipherView _view;
 
         public WigenerCipherController(WigenerCipherView view)
