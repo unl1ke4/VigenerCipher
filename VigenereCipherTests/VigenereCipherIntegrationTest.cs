@@ -1,9 +1,9 @@
-﻿using WigenerCipher;
+﻿using VigenereCipher;
 
-namespace WigenerCipherTests
+namespace VigenereCipherTests
 {
     // Мок для View, який замінює роботу з консоллю
-    public class MockView : WigenerCipherView
+    public class MockView : VigenereCipherView
     {
         private readonly Queue<string> _inputs;
         public string? Output { get; private set; }
@@ -19,7 +19,7 @@ namespace WigenerCipherTests
         public override void ShowResult(string result) => Output = result;
     }
 
-    public class WigenerCipherIntegrationTests
+    public class VigenereCipherIntegrationTests
     {
         [Fact]
         public void Controller_EncryptsAndDecrypts_Correctly()
@@ -39,8 +39,8 @@ namespace WigenerCipherTests
                 Console.SetIn(input);
                 Console.SetOut(output);
 
-                var view = new WigenerCipherView();
-                var controller = new WigenerCipherController(view);
+                var view = new VigenereCipherView();
+                var controller = new VigenereCipherController(view);
                 controller.Run();
 
                 string consoleOutput = output.ToString();
@@ -60,8 +60,8 @@ namespace WigenerCipherTests
                 Console.SetIn(input);
                 Console.SetOut(output);
 
-                var view = new WigenerCipherView();
-                var controller = new WigenerCipherController(view);
+                var view = new VigenereCipherView();
+                var controller = new VigenereCipherController(view);
                 controller.Run();
 
                 string consoleOutput = output.ToString();

@@ -1,13 +1,13 @@
-﻿namespace WigenerCipher
+﻿namespace VigenereCipher
 {
-    public class WigenerCipherController
+    public class VigenereCipherController
     {
-        private readonly WigenerCipherModel _model;
-        private readonly WigenerCipherView _view;
+        private readonly VigenereCipherModel _model;
+        private readonly VigenereCipherView _view;
 
-        public WigenerCipherController(WigenerCipherView view)
+        public VigenereCipherController(VigenereCipherView view)
         {
-            _model = new WigenerCipherModel();
+            _model = new VigenereCipherModel();
             _view = view;
         }
 

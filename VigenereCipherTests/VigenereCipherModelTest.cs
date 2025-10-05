@@ -1,10 +1,10 @@
-﻿using WigenerCipher;
+﻿using VigenereCipher;
 
-namespace WigenerCipherTests
+namespace VigenereCipherTests
 {
-    public class WigenerCipherModelTest
+    public class VigenereCipherModelTest
     {
-        private readonly WigenerCipherModel _model = new WigenerCipherModel();
+        private readonly VigenereCipherModel _model = new VigenereCipherModel();
 
         [Fact]
         public void Encrypt_ReturnsExpectedCipherText()

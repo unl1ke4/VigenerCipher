@@ -1,6 +1,6 @@
-﻿namespace WigenerCipher
+﻿namespace VigenereCipher
 {
-    public class WigenerCipherView
+    public class VigenereCipherView
     {
         public virtual string GetInputText()
         {

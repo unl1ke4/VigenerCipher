@@ -1,14 +1,11 @@
-﻿using System;
-using WigenerCipher;
-
-namespace WigenerCipher
+﻿namespace VigenereCipher
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var view = new WigenerCipherView();
-            var controller = new WigenerCipherController(view);
+            var view = new VigenereCipherView();
+            var controller = new VigenereCipherController(view);
 
             controller.Run();
 

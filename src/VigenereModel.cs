@@ -1,6 +1,6 @@
-﻿namespace WigenerCipher
+﻿namespace VigenereCipher
 {
-    public class WigenerCipherModel
+    public class VigenereCipherModel
     {
         private const string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
