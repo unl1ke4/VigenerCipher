@@ -2,7 +2,7 @@
 {
     public class WigenerCipherView
     {
-        public string GetInputText()
+        public virtual string GetInputText()
         {
             string text;
             while (true)
@@ -18,7 +18,7 @@
             return text;
         }
 
-        public string GetKey()
+        public virtual string GetKey()
         {
             string key;
             while (true)
@@ -34,12 +34,12 @@
             return key;
         }
 
-        public void ShowResult(string result)
+        public virtual void ShowResult(string result)
         {
             Console.WriteLine("Result: " + result);
         }
 
-        public int GetChoice()
+        public virtual int GetChoice()
         {
             int choice;
             while (true)
@@ -56,5 +56,6 @@
             }
             return choice;
         }
+       
     }
 }
