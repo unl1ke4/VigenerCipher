@@ -6,19 +6,27 @@
 
         private static char EncryptChar(char c, char k, bool decrypt = false)
         {
-            if (!char.IsLetter(c)) return c;
+            try
+            {
+                if (!char.IsLetter(c)) return c;
 
-            char upperC = char.ToUpper(c);
-            int cIndex = Alphabet.IndexOf(upperC);
-            int kIndex = Alphabet.IndexOf(char.ToUpper(k));
+                char upperC = char.ToUpper(c);
+                int cIndex = Alphabet.IndexOf(upperC);
+                int kIndex = Alphabet.IndexOf(char.ToUpper(k));
 
-            if (decrypt)
-                kIndex = Alphabet.Length - kIndex;
+                if (decrypt)
+                    kIndex = Alphabet.Length - kIndex;
 
-            int newIndex = (cIndex + kIndex) % Alphabet.Length;
-            char result = Alphabet[newIndex];
+                int newIndex = (cIndex + kIndex) % Alphabet.Length;
+                char result = Alphabet[newIndex];
 
-            return char.IsUpper(c) ? result : char.ToLower(result);
+                return char.IsUpper(c) ? result : char.ToLower(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in EncryptChar: {e.Message}");
+                return c;
+            }
         }
 
         public string Encrypt(string text, string key) => Process(text, key, false);
@@ -26,26 +34,33 @@
 
         private string Process(string text, string key, bool decrypt)
         {
-            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(key))
-                return string.Empty;
-
-            var result = new System.Text.StringBuilder();
-            int keyIndex = 0;
-
-            foreach (char c in text)
+            try
             {
-                if (char.IsLetter(c))
-                {
-                    result.Append(EncryptChar(c, key[keyIndex % key.Length], decrypt));
-                    keyIndex++;
-                }
-                else
-                {
-                    result.Append(c);
-                }
-            }
+                if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(key))
+                    return string.Empty;
 
-            return result.ToString();
+                var result = new System.Text.StringBuilder();
+                int keyIndex = 0;
+
+                foreach (char c in text)
+                {
+                    if (char.IsLetter(c))
+                    {
+                        result.Append(EncryptChar(c, key[keyIndex % key.Length], decrypt));
+                        keyIndex++;
+                    }
+                    else
+                    {
+                        result.Append(c);
+                    }
+                }
+
+                return result.ToString();
+            }
+            catch (Exception e)
+            {
+                return $"Error while processing text: {e.Message}";
+            }
         }
     }
 }
