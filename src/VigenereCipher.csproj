@@ -5,6 +5,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	
+	<PackageId>VigenereCipher</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Твоє ім'я</Authors>
+    <Company>None</Company>
+    <Description>Console program for encrypting/decrypting text using the Vigenere method</Description>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
   </PropertyGroup>
 
 </Project>
