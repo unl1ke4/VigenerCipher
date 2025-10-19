@@ -17,29 +17,52 @@
 
             while (running)
             {
-                int choice = _view.GetChoice();
-                string text = _view.GetInputText();
-                string key = _view.GetKey();
+                try
+                {
+                    int choice = _view.GetChoice();
+                    string text = _view.GetInputText();
+                    string key = _view.GetKey();
 
-                string result;
+                    string result;
 
-                if (choice == 1)
-                    result = _model.Encrypt(text, key);
-                else if (choice == 2)
-                    result = _model.Decrypt(text, key);
-                else
-                    result = "Wrong choice";
+                    if (choice == 1)
+                        result = _model.Encrypt(text, key);
+                    else if (choice == 2)
+                        result = _model.Decrypt(text, key);
+                    else
+                        result = "Wrong choice";
 
-                _view.ShowResult(result);
+                    _view.ShowResult(result);
 
-                Console.WriteLine("\nWhat do you want to do next?");
-                Console.WriteLine("1 – Return to mode selection");
-                Console.WriteLine("2 – Exit the program");
-                Console.Write("Your choice: ");
+                    bool validNextChoice = false;
+                    while (!validNextChoice)
+                    {
+                        Console.WriteLine("\nWhat do you want to do next?");
+                        Console.WriteLine("1 – Return to mode selection");
+                        Console.WriteLine("2 – Exit the program");
+                        Console.Write("Your choice: ");
 
-                string next = Console.ReadLine();
-                if (next != "1")
-                    running = false;
+                        string next = Console.ReadLine();
+
+                        switch (next)
+                        {
+                            case "1":
+                                validNextChoice = true;
+                                break;
+                            case "2":
+                                validNextChoice = true;
+                                running = false;
+                                break;
+                            default:
+                                Console.WriteLine("Invalid choice! Please enter 1 or 2.\n");
+                                break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
             }
         }
     }
