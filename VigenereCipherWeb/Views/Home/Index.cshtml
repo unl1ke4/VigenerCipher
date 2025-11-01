@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Головна сторінка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container text-center mt-5">
+    <h1 class="display-4 mb-4">Вітаємо на сайті для шифрування методом Віженера</h1>
+    <p class="lead mb-5">Будь ласка, увійдіть або зареєструйтесь, щоб продовжити.</p>
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <p>Вітаємо, @ViewBag.UserName!</p>
+        <a href="/Account/Logout" class="btn btn-danger">Вийти</a>
+    }
+    else
+    {
+        <a href="/Account/Login" class="btn btn-primary">Увійти або зареєструватися</a>
+    }
+</div>
