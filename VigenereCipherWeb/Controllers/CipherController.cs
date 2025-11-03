@@ -18,7 +18,7 @@ namespace VigenereCipherWeb.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(new VigenereViewModel());
+            return View("CipherPage", new VigenereViewModel());
         }
 
         [HttpPost]
@@ -26,8 +26,8 @@ namespace VigenereCipherWeb.Controllers
         {
             if (string.IsNullOrEmpty(model.InputText) || string.IsNullOrEmpty(model.Key))
             {
-                ViewBag.Error = "Текст і ключ не можуть бути порожніми.";
-                return View(model);
+                ViewBag.Error = "The text and key cannot be empty!";
+                return View("CipherPage", model);
             }
 
             try
@@ -43,10 +43,10 @@ namespace VigenereCipherWeb.Controllers
             }
             catch (Exception ex)
             {
-                model.ResultText = $"Помилка: {ex.Message}";
+                model.ResultText = $"Error: {ex.Message}";
             }
 
-            return View(model);
+            return View("CipherPage",model);
         }
     }
 }

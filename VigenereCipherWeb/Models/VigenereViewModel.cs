@@ -4,13 +4,13 @@ namespace VigenereCipherWeb.Models
 {
     public class VigenereViewModel
     {
-        [DisplayName("Введіть текст")]
+        [DisplayName("Enter text")]
         public string? InputText { get; set; }
 
-        [DisplayName("Введіть ключ")]
+        [DisplayName("Enter the key")]
         public string? Key { get; set; }
 
-        [DisplayName("Результат")]
+        [DisplayName("Result")]
         public string? ResultText { get; set; }
 
         public string Operation { get; set; } = "encrypt";

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container text-center mt-5">
+    <h1 class="display-4 mb-4">Welcome to the website for encryption using the Vigenère method</h1>
+    <p class="lead mb-5">VigenereCipher — simple text cipher using the Vigenère method.
+        The algorithm uses an alphabetic key (secret word): each letter of the key specifies a shift for the corresponding letter of the plaintext, with the key repeated cyclically. Shifts are added for encryption and subtracted for decryption.
+    </p>
+    <p class="lead mb-5">How to use:</p> 
+    <ol class="lead text-start mb-5" style="max-width: 600px; margin: 0 auto;">
+        <li>Log in or register on the website. </li>
+        <li>Once logged in, you will be able to access the text encryption and decryption features using the Vigenère method. </li>
+        <li>Use the intuitive interface to enter your text and encryption key. </li>
+        <li>Click the "Encrypt" or "Decrypt" button to get the result. </li>
+        <li>You can also view your profile by clicking on the "My Profile" button.</li>
+    </ol>
+    <p class="lead mb-5">Disclaimer: The Vigenère method is suitable for educational and demonstration purposes, but does not provide modern cryptographic protection for confidential data.</p>
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <p>Welcome, @ViewBag.UserName!</p>
+        <a href="/Account/Logout" class="btn btn-danger">Logout</a>
+        <a href="/Profile" class="btn btn-info">Profile</a>
+    }
+    else
+    {
+        <a href="/Account/Login" class="btn btn-primary">Login or Register</a>
+    }
+</div>

@@ -1,11 +1,11 @@
 @model VigenereCipherWeb.Models.VigenereViewModel 
 @{
-    ViewData["Title"] = "Шифратор Віженера";
+    ViewData["Title"] = "Vigenere Cipher";
     Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
 
 <h2>@ViewData["Title"]</h2>
-<p>Використовуйте форму нижче для шифрування або дешифрування тексту.</p>
+<p>Use the form below to encrypt or decrypt text.</p>
 <hr />
 
 <div class="row">
@@ -29,14 +29,14 @@
             </div>
 
             <div class="form-group mb-3">
-                <label>Дія:</label>
+                <label>Action:</label>
                 <select asp-for="Operation" class="form-select">
-                    <option value="encrypt">Шифрувати</option>
-                    <option value="decrypt">Дешифрувати</option>
+                    <option value="encrypt">Encrypt</option>
+                    <option value="decrypt">Decrypt</option>
                 </select>
             </div>
             
-            <button type="submit" class="btn btn-primary">Виконати</button>
+            <button type="submit" class="btn btn-primary">Execute</button>
         </form>
     </div>
 

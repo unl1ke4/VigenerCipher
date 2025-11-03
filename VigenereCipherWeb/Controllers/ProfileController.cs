@@ -20,7 +20,7 @@ namespace VigenereCipherWeb.Controllers
             ViewBag.Name = User.FindFirst("name")?.Value;
             ViewBag.Picture = User.FindFirst("picture")?.Value;
 
-            return View(claims);
+            return View("ProfilePage", claims);
         }
     }
 }

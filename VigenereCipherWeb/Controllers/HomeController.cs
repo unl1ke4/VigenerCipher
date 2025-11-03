@@ -12,8 +12,8 @@ namespace VigenereCipherWeb.Controllers
             var name = User.Identity?.Name;
             var email = User.FindFirst("email")?.Value;
 
-            ViewBag.UserName = nickname ?? name ?? email ?? "Невідомий користувач";
-            return View();
+            ViewBag.UserName = nickname ?? name ?? email ?? "Unknown user";
+            return View("HomePage");
         }
     }
 }
