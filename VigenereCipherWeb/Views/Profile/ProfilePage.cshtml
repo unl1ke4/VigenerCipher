@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "User profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 text-center">
+    <h2 class="mb-4">User profile</h2>
+
+    <div class="card mx-auto" style="max-width: 400px;">
+        <div class="card-body">
+            <img src="@ViewBag.Picture" alt="User picture" class="rounded-circle mb-3" width="120" height="120" />
+
+            <h4>@ViewBag.Nickname</h4>
+            <p><strong>Email:</strong> @ViewBag.Email</p>
+            <p><strong>Name:</strong> @ViewBag.Name</p>
+
+            <div class="d-flex justify-content-center mt-4">
+                <a href="/" class="btn btn-secondary me-2">Home</a>
+                <a href="/Account/Logout" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>

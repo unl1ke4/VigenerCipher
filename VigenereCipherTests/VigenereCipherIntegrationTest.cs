@@ -1,4 +1,5 @@
-﻿using VigenereCipher;
+﻿using VigenereCipher.Controller;
+using VigenereCipher.View;
 
 namespace VigenereCipherTests
 {

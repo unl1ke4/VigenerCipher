@@ -1,4 +1,4 @@
-﻿namespace VigenereCipher
+﻿namespace VigenereCipher.View
 {
     public class VigenereCipherView
     {

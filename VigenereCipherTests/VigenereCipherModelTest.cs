@@ -1,4 +1,5 @@
 ﻿using VigenereCipher;
+using VigenereCipherLib;
 
 namespace VigenereCipherTests
 {

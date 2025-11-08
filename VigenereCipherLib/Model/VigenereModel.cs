@@ -1,4 +1,4 @@
-﻿namespace VigenereCipher
+﻿namespace VigenereCipherLib
 {
     public class VigenereCipherModel
     {

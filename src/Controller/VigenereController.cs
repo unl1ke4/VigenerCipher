@@ -1,4 +1,7 @@
-﻿namespace VigenereCipher
+﻿using VigenereCipher.View;
+using VigenereCipherLib;
+
+namespace VigenereCipher.Controller
 {
     public class VigenereCipherController
     {

@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VigenereCipher", "VigenereC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VigenereCipherTests", "..\VigenereCipherTests\VigenereCipherTests.csproj", "{F2C49F16-8342-4F55-824E-34E5FDE5CB28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VigenereCipherLib", "..\VigenereCipherLib\VigenereCipherLib.csproj", "{EB6996EA-7BD0-4A3F-892B-1CC7CB71DE65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VigenereCipherWeb", "..\VigenereCipherWeb\VigenereCipherWeb.csproj", "{3AF85724-132B-4652-9872-6E8D4B7E07F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{F2C49F16-8342-4F55-824E-34E5FDE5CB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2C49F16-8342-4F55-824E-34E5FDE5CB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2C49F16-8342-4F55-824E-34E5FDE5CB28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6996EA-7BD0-4A3F-892B-1CC7CB71DE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6996EA-7BD0-4A3F-892B-1CC7CB71DE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6996EA-7BD0-4A3F-892B-1CC7CB71DE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6996EA-7BD0-4A3F-892B-1CC7CB71DE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF85724-132B-4652-9872-6E8D4B7E07F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF85724-132B-4652-9872-6E8D4B7E07F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF85724-132B-4652-9872-6E8D4B7E07F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF85724-132B-4652-9872-6E8D4B7E07F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
