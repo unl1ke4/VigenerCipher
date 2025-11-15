@@ -1,10 +1,33 @@
 ﻿using Auth0.AspNetCore.Authentication;
+using VigenereCipherWeb.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var dbType = builder.Configuration["DatabaseType"];
 
 builder.Services.AddControllersWithViews();
 
-// Auth0 конфігурація
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    switch (dbType)
+    {
+        case "SqlServer":
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            break;
+        case "Postgres":
+            options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"));
+            break;
+        case "Sqlite":
+            options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection"));
+            break;
+        case "InMemory":
+            options.UseInMemoryDatabase("VigenereCipherDb");
+            break;
+        default:
+            throw new Exception("Database type not configured");
+    }
+});
+
 builder.Services
     .AddAuth0WebAppAuthentication(options =>
     {
@@ -21,10 +44,11 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
