@@ -31,14 +31,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services
     .AddAuth0WebAppAuthentication(options =>
     {
-        options.Domain = builder.Configuration["Auth0:Domain"];
-        options.ClientId = builder.Configuration["Auth0:ClientId"];
-        options.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
+        options.Domain = builder.Configuration["Auth0:Domain"] 
+            ?? throw new InvalidOperationException("Auth0:Domain is not configured");
+        options.ClientId = builder.Configuration["Auth0:ClientId"] 
+            ?? throw new InvalidOperationException("Auth0:ClientId is not configured");
+        options.ClientSecret = builder.Configuration["Auth0:ClientSecret"] 
+            ?? throw new InvalidOperationException("Auth0:ClientSecret is not configured");
         options.CallbackPath = new PathString("/callback");
         options.Scope = "openid profile email";
     });
 
 var app = builder.Build();
+
+// Автоматично застосовуємо міграції при старті
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate(); // застосовує всі міграції
+}
 
 if (!app.Environment.IsDevelopment())
 {
