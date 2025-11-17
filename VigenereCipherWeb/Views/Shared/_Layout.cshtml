@@ -25,6 +25,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cipher" asp-action="Index">Cipher</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                📋 Довідники
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Users" asp-action="Index">Користувачі</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                📊 Мої шифрування
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="CipherJobs" asp-action="Index">Історія шифрувань</a></li>
+                                <li><a class="dropdown-item" asp-controller="CipherJobs" asp-action="Search">🔍 Пошук</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

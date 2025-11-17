@@ -1,0 +1,42 @@
+@model List<VigenereCipherWeb.Data.AppUser>
+@{
+    ViewData["Title"] = "Користувачі (Довідник)";
+}
+
+<h1 class="display-4">👥 Список користувачів</h1>
+<p class="lead">Довідник AppUsers з підрахунком завдань</p>
+<hr class="my-4" />
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Auth0 ID</th>
+                <th>Кількість завдань</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                    <td><small>@user.Auth0UserId</small></td>
+                    <td><span class="badge bg-primary">@user.CipherJobs.Count</span></td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = user.Id })" class="btn btn-sm btn-info">Деталі</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-4">
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">← Назад на головну</a>
+</div>

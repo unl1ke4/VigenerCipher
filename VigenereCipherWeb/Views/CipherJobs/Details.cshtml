@@ -1,0 +1,67 @@
+@model VigenereCipherWeb.Data.CipherJob
+@{
+    ViewData["Title"] = "Деталі завдання";
+}
+
+<h1 class="display-4">🔐 Деталі завдання шифрування</h1>
+<hr class="my-4" />
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4>Завдання #@Model.Id</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Input Text:</strong></p>
+                    <pre class="bg-light p-2">@Model.InputText</pre>
+                    
+                    <p><strong>Key:</strong> <code>@Model.Key</code></p>
+                    
+                    <p><strong>Operation:</strong> 
+                        <span class="badge bg-@(Model.Operation == "encrypt" ? "success" : "warning")">
+                            @Model.Operation.ToUpper()
+                        </span>
+                    </p>
+                </div>
+                
+                <div class="col-md-6">
+                    <p><strong>Result Text:</strong></p>
+                    <pre class="bg-light p-2">@Model.ResultText</pre>
+                    
+                    <p><strong>Дата створення:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header bg-info text-white">
+                    <h5>👤 Користувач</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Username:</strong> @(Model.AppUser?.Username ?? "N/A")</p>
+                    <p><strong>Email:</strong> @(Model.AppUser?.Email ?? "N/A")</p>
+                    <p><strong>Auth0 ID:</strong> <small><code>@(Model.AppUser?.Auth0UserId ?? "N/A")</code></small></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5>🔧 Метод шифрування</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Назва:</strong> @Model.CipherMethod.Name</p>
+                    <p><strong>Опис:</strong> @Model.CipherMethod.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="mt-4">
+    <a href="@Url.Action("Index")" class="btn btn-secondary">← Назад до списку</a>
+</div>
