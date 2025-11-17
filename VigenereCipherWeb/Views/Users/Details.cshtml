@@ -1,14 +1,14 @@
 @model VigenereCipherWeb.Data.AppUser
 @{
-    ViewData["Title"] = "Деталі користувача";
+    ViewData["Title"] = "User Details";
 }
 
-<h1 class="display-4">👤 Деталі користувача</h1>
+<h1 class="display-4">👤 User Details</h1>
 <hr class="my-4" />
     
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <h4>Інформація про користувача</h4>
+            <h4>User Information</h4>
         </div>
         <div class="card-body">
             <p><strong>ID:</strong> @Model.Id</p>
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-<h3 class="mt-4">📋 Завдання шифрування користувача (@Model.CipherJobs.Count)</h3>
+<h3 class="mt-4">📋 User Cipher Jobs (@Model.CipherJobs.Count)</h3>
 
 @if (Model.CipherJobs.Any())
 {
@@ -31,8 +31,8 @@
                     <th>Key</th>
                     <th>Operation</th>
                     <th>Result</th>
-                    <th>Метод</th>
-                    <th>Дата</th>
+                    <th>Method</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,9 +54,9 @@
 }
 else
 {
-    <div class="alert alert-info">У цього користувача ще немає завдань.</div>
+    <div class="alert alert-info">This user has no jobs yet.</div>
 }
 
 <div class="mt-4">
-    <a href="@Url.Action("Index")" class="btn btn-secondary">← Назад до списку</a>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">← Back to List</a>
 </div>

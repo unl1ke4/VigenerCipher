@@ -1,14 +1,14 @@
 @model VigenereCipherWeb.Data.CipherJob
 @{
-    ViewData["Title"] = "Деталі завдання";
+    ViewData["Title"] = "Cipher Details";
 }
 
-<h1 class="display-4">🔐 Деталі завдання шифрування</h1>
+<h1 class="display-4">🔐 Cipher Details</h1>
 <hr class="my-4" />
     
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <h4>Завдання #@Model.Id</h4>
+            <h4>Job #@Model.Id</h4>
         </div>
         <div class="card-body">
             <div class="row">
@@ -29,7 +29,7 @@
                     <p><strong>Result Text:</strong></p>
                     <pre class="bg-light p-2">@Model.ResultText</pre>
                     
-                    <p><strong>Дата створення:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm:ss")</p>
+                    <p><strong>Created At:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm:ss")</p>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
         <div class="col-md-6">
             <div class="card mb-3">
                 <div class="card-header bg-info text-white">
-                    <h5>👤 Користувач</h5>
+                    <h5>👤 User</h5>
                 </div>
                 <div class="card-body">
                     <p><strong>Username:</strong> @(Model.AppUser?.Username ?? "N/A")</p>
@@ -52,16 +52,16 @@
         <div class="col-md-6">
             <div class="card mb-3">
                 <div class="card-header bg-success text-white">
-                    <h5>🔧 Метод шифрування</h5>
+                    <h5>🔧 Cipher Method</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>Назва:</strong> @Model.CipherMethod.Name</p>
-                    <p><strong>Опис:</strong> @Model.CipherMethod.Description</p>
+                    <p><strong>Name:</strong> @Model.CipherMethod.Name</p>
+                    <p><strong>Description:</strong> @Model.CipherMethod.Description</p>
                 </div>
             </div>
         </div>
     </div>
 
 <div class="mt-4">
-    <a href="@Url.Action("Index")" class="btn btn-secondary">← Назад до списку</a>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">← Back to List</a>
 </div>

@@ -1,10 +1,10 @@
 @model List<VigenereCipherWeb.Data.AppUser>
 @{
-    ViewData["Title"] = "Користувачі (Довідник)";
+    ViewData["Title"] = "Users (Directory)";
 }
 
-<h1 class="display-4">👥 Список користувачів</h1>
-<p class="lead">Довідник AppUsers з підрахунком завдань</p>
+<h1 class="display-4">👥 Users List</h1>
+<p class="lead">AppUsers directory with job count</p>
 <hr class="my-4" />
 
 <div class="table-responsive">
@@ -15,8 +15,8 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Auth0 ID</th>
-                <th>Кількість завдань</th>
-                <th>Дії</th>
+                <th>Jobs Count</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +29,7 @@
                     <td><small>@user.Auth0UserId</small></td>
                     <td><span class="badge bg-primary">@user.CipherJobs.Count</span></td>
                     <td>
-                        <a href="@Url.Action("Details", new { id = user.Id })" class="btn btn-sm btn-info">Деталі</a>
+                        <a href="@Url.Action("Details", new { id = user.Id })" class="btn btn-sm btn-info">Details</a>
                     </td>
                 </tr>
             }
@@ -38,5 +38,5 @@
 </div>
 
 <div class="mt-4">
-    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">← Назад на головну</a>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">← Back to Home</a>
 </div>
