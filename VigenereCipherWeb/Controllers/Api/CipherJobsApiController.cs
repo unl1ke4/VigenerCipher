@@ -1,8 +1,8 @@
-﻿using Asp.Versioning;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VigenereCipherWeb.Data;
 using VigenereCipherWeb.Models;
+using ApiVersion = Microsoft.AspNetCore.Mvc.ApiVersion;
 
 namespace VigenereCipherWeb.Controllers.Api
 {

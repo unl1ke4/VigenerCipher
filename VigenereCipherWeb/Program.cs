@@ -2,6 +2,7 @@
 using VigenereCipherWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc; 
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var dbType = builder.Configuration["DatabaseType"];
@@ -23,7 +24,22 @@ builder.Services.AddVersionedApiExplorer(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "Vigenere API v1", 
+        Version = "v1" 
+    });
+
+    options.SwaggerDoc("v2", new OpenApiInfo 
+    { 
+        Title = "Vigenere API v2", 
+        Version = "v2" 
+    });
+
+    options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -83,6 +99,7 @@ app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Vigenere API v1");
+    options.SwaggerEndpoint("/swagger/v2/swagger.json", "Vigenere API v2");
 });
 
 app.UseStaticFiles();
@@ -97,3 +114,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+public partial class Program { }
