@@ -47,7 +47,19 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate(); // застосовує всі міграції
+
+    // Читаємо тип БД ще раз
+    var currentDbType = app.Configuration["DatabaseType"];
+
+    if (currentDbType == "SqlServer" ||
+        currentDbType == "Postgres" ||
+        currentDbType == "Sqlite")
+    {
+        // Для реляційних БД – виконуємо міграції
+        db.Database.Migrate();
+    }
+    else if (currentDbType == "InMemory")
+    {}
 }
 
 if (!app.Environment.IsDevelopment())
