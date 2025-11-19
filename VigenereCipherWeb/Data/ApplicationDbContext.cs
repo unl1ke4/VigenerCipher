@@ -41,7 +41,7 @@ namespace VigenereCipherWeb.Data
                     ResultText = "RIJVS",
                     AppUserId = 1,
                     CipherMethodId = 1,
-                    CreatedAt = new DateTime(2025, 11, 15, 10, 30, 0)
+                    CreatedAt = new DateTime(2025, 11, 15, 10, 30, 0, DateTimeKind.Utc)
                 },
                 new CipherJob 
                 { 
@@ -52,7 +52,7 @@ namespace VigenereCipherWeb.Data
                     ResultText = "CPSME",
                     AppUserId = 1,
                     CipherMethodId = 1,
-                    CreatedAt = new DateTime(2025, 11, 16, 14, 20, 0)
+                    CreatedAt = new DateTime(2025, 11, 16, 14, 20, 0, DateTimeKind.Utc)
                 },
                 new CipherJob 
                 { 
@@ -63,7 +63,7 @@ namespace VigenereCipherWeb.Data
                     ResultText = "TFDSFU",
                     AppUserId = 2,
                     CipherMethodId = 2,
-                    CreatedAt = new DateTime(2025, 11, 17, 9, 15, 0)
+                    CreatedAt = new DateTime(2025, 11, 17, 9, 15, 0, DateTimeKind.Utc)
                 }
             );
         }

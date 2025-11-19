@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VigenereCipherWeb.Data;
 
 #nullable disable
@@ -11,32 +12,38 @@ using VigenereCipherWeb.Data;
 namespace VigenereCipherWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251116224753_AddCipherMethodsAndUpdateSchema")]
-    partial class AddCipherMethodsAndUpdateSchema
+    [Migration("20251119170958_InitialCreatePostgres")]
+    partial class InitialCreatePostgres
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("VigenereCipherWeb.Data.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Auth0UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -63,32 +70,34 @@ namespace VigenereCipherWeb.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("AppUserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("CipherMethodId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("InputText")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Operation")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ResultText")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -104,7 +113,7 @@ namespace VigenereCipherWeb.Migrations
                             Id = 1,
                             AppUserId = 1,
                             CipherMethodId = 1,
-                            CreatedAt = new DateTime(2025, 11, 15, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2025, 11, 15, 10, 30, 0, 0, DateTimeKind.Utc),
                             InputText = "HELLO",
                             Key = "KEY",
                             Operation = "encrypt",
@@ -115,7 +124,7 @@ namespace VigenereCipherWeb.Migrations
                             Id = 2,
                             AppUserId = 1,
                             CipherMethodId = 1,
-                            CreatedAt = new DateTime(2025, 11, 16, 14, 20, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2025, 11, 16, 14, 20, 0, 0, DateTimeKind.Utc),
                             InputText = "WORLD",
                             Key = "KEY",
                             Operation = "encrypt",
@@ -126,7 +135,7 @@ namespace VigenereCipherWeb.Migrations
                             Id = 3,
                             AppUserId = 2,
                             CipherMethodId = 2,
-                            CreatedAt = new DateTime(2025, 11, 17, 9, 15, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2025, 11, 17, 9, 15, 0, 0, DateTimeKind.Utc),
                             InputText = "SECRET",
                             Key = "ABC",
                             Operation = "decrypt",
@@ -138,15 +147,17 @@ namespace VigenereCipherWeb.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
