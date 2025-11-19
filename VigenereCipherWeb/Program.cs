@@ -1,11 +1,29 @@
 ﻿using Auth0.AspNetCore.Authentication;
 using VigenereCipherWeb.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc; 
 
 var builder = WebApplication.CreateBuilder(args);
 var dbType = builder.Configuration["DatabaseType"];
 
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+});
+
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -43,23 +61,17 @@ builder.Services
 
 var app = builder.Build();
 
-// Автоматично застосовуємо міграції при старті
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-    // Читаємо тип БД ще раз
     var currentDbType = app.Configuration["DatabaseType"];
 
     if (currentDbType == "SqlServer" ||
         currentDbType == "Postgres" ||
         currentDbType == "Sqlite")
     {
-        // Для реляційних БД – виконуємо міграції
         db.Database.Migrate();
     }
-    else if (currentDbType == "InMemory")
-    {}
 }
 
 if (!app.Environment.IsDevelopment())
@@ -67,10 +79,16 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 
-app.UseRouting();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Vigenere API v1");
+});
 
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
