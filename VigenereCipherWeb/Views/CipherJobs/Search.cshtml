@@ -1,0 +1,104 @@
+@model VigenereCipherWeb.Models.SearchViewModel
+@{
+    ViewData["Title"] = "Search Jobs";
+}
+
+<h1 class="display-4">🔍 Search My Cipher Jobs</h1>
+<p class="lead">Search with JOIN to AppUsers and CipherMethods (only your jobs displayed)</p>
+<hr class="my-4" />
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="post" asp-action="Search">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="DateFrom" class="form-label">Date From:</label>
+                <input asp-for="DateFrom" type="datetime-local" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="DateTo" class="form-label">Date To:</label>
+                <input asp-for="DateTo" type="datetime-local" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="InputTextStartsWith" class="form-label">Input Starts With:</label>
+                <input asp-for="InputTextStartsWith" class="form-control" placeholder="e.g.: HE" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="InputTextEndsWith" class="form-label">Input Ends With:</label>
+                <input asp-for="InputTextEndsWith" class="form-control" placeholder="e.g.: LO" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="ResultTextStartsWith" class="form-label">Result Starts With:</label>
+                <input asp-for="ResultTextStartsWith" class="form-control" placeholder="e.g.: RI" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="ResultTextEndsWith" class="form-label">Result Ends With:</label>
+                <input asp-for="ResultTextEndsWith" class="form-control" placeholder="e.g.: VS" />
+            </div>
+        </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button type="submit" class="btn btn-primary btn-lg">🔍 Search</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.Results.Any())
+{
+    <h3>Search Results (@Model.Results.Count)</h3>
+    <p class="text-muted">Data from JOIN: CipherJobs + AppUsers + CipherMethods</p>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Input</th>
+                    <th>Key</th>
+                    <th>Operation</th>
+                    <th>Result</th>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Method</th>
+                    <th>Method Description</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var result in Model.Results)
+                {
+                    <tr>
+                        <td>@result.Id</td>
+                        <td>@result.InputText</td>
+                        <td>@result.Key</td>
+                        <td><span class="badge bg-info">@result.Operation</span></td>
+                        <td>@result.ResultText</td>
+                        <td>@result.Username</td>
+                        <td><small>@result.UserEmail</small></td>
+                        <td>@result.MethodName</td>
+                        <td><small>@result.MethodDescription</small></td>
+                        <td>@result.CreatedAt.ToString("dd.MM.yy HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else if (Context.Request.Method == "POST")
+{
+    <div class="alert alert-info">
+        No results found for the specified criteria.
+    </div>
+}
+
+<div class="mt-4">
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">← Назад на головну</a>
+</div>

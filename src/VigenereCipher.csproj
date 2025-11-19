@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.5.0" />
-    <PackageReference Include="VigenereCipher" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,63 @@
+@model List<VigenereCipherWeb.Data.CipherJob>
+@{
+    ViewData["Title"] = "My Cipher Jobs";
+}
+
+<h1 class="display-4">📊 My Cipher History</h1>
+<p class="lead">Current user history</p>
+<hr class="my-4" />
+
+    <div class="mb-3">
+        <a href="@Url.Action("Search")" class="btn btn-success">🔍 Advanced Search</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning">
+            <strong>History is empty.</strong> You don't have any cipher jobs yet. Go to <a href="@Url.Action("Index", "Cipher")">Cipher</a> page to create a new job.
+        </div>
+    }
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Input</th>
+                <th>Key</th>
+                <th>Operation</th>
+                <th>Result</th>
+                <th>User</th>
+                <th>Email</th>
+                <th>Method</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var job in Model)
+            {
+                <tr>
+                    <td>@job.Id</td>
+                    <td>@job.InputText</td>
+                    <td>@job.Key</td>
+                    <td><span class="badge bg-info">@job.Operation</span></td>
+                    <td>@job.ResultText</td>
+                    <td>@(job.AppUser?.Username ?? "N/A")</td>
+                    <td><small>@(job.AppUser?.Email ?? "N/A")</small></td>
+                    <td>@job.CipherMethod.Name</td>
+                    <td>@job.CreatedAt.ToString("dd.MM.yy HH:mm")</td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = job.Id })" class="btn btn-sm btn-primary">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        </table>
+    </div>
+}
+
+<div class="mt-4">
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">← Back to Home</a>
+</div>

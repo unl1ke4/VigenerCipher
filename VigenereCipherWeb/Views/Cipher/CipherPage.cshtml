@@ -17,6 +17,14 @@
             {
                 <div class="alert alert-danger">@ViewBag.Error</div>
             }
+            
+            @if (ViewBag.Success != null)
+            {
+                <div class="alert alert-success">
+                    @ViewBag.Success
+                    <a href="@Url.Action("Index", "CipherJobs")" class="alert-link">Переглянути історію</a>
+                </div>
+            }
 
             <div class="form-group mb-3">
                 <label asp-for="InputText" class="control-label"></label>

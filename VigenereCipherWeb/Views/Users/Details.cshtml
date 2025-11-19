@@ -1,0 +1,62 @@
+@model VigenereCipherWeb.Data.AppUser
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h1 class="display-4">👤 User Details</h1>
+<hr class="my-4" />
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4>User Information</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>ID:</strong> @Model.Id</p>
+            <p><strong>Username:</strong> @Model.Username</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Auth0 User ID:</strong> <code>@Model.Auth0UserId</code></p>
+        </div>
+    </div>
+
+<h3 class="mt-4">📋 User Cipher Jobs (@Model.CipherJobs.Count)</h3>
+
+@if (Model.CipherJobs.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Input</th>
+                    <th>Key</th>
+                    <th>Operation</th>
+                    <th>Result</th>
+                    <th>Method</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var job in Model.CipherJobs.OrderByDescending(j => j.CreatedAt))
+                {
+                    <tr>
+                        <td>@job.Id</td>
+                        <td>@job.InputText</td>
+                        <td>@job.Key</td>
+                        <td><span class="badge bg-info">@job.Operation</span></td>
+                        <td>@job.ResultText</td>
+                        <td>@job.CipherMethod.Name</td>
+                        <td>@job.CreatedAt.ToString("dd.MM.yy HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">This user has no jobs yet.</div>
+}
+
+<div class="mt-4">
+    <a href="@Url.Action("Index")" class="btn btn-secondary">← Back to List</a>
+</div>
