@@ -1,0 +1,4 @@
+﻿F:\Archive\HW\programming\C#\VigenereCipher\src\Controller\VigenereController.cs
+F:\Archive\HW\programming\C#\VigenereCipher\src\Program.cs
+F:\Archive\HW\programming\C#\VigenereCipher\src\View\VigenereView.cs
+F:\Archive\HW\programming\C#\VigenereCipher\src\nuget.config

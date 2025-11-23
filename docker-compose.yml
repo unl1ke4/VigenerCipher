@@ -1,34 +1,84 @@
 version: '3.8'
 
-
-
 services:
-
-
+  # --- Твоя База Даних (Залишив твій пароль) ---
   postgres_db:
-
-    image: postgres:15        
-
-    container_name: vigenere-postgres-db 
+    image: postgres:15
+    container_name: vigenere-postgres-db
     environment:
-
       POSTGRES_PASSWORD: password
-
       POSTGRES_USER: postgres
-
-      POSTGRES_DB: VigenereCipherDb 
+      POSTGRES_DB: VigenereCipherDb
     ports:
-
-
       - "5432:5432"
-
     volumes:
-
-
       - postgres_data:/var/lib/postgresql/data
 
+  # --- OpenTelemetry Collector (Мозок моніторингу) ---
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./config/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317" # OTLP gRPC receiver
+      - "4318:4318" # OTLP HTTP receiver
+      - "8889:8889" # Prometheus exporter metrics
 
+  # --- Zipkin (Трейсинг) ---
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+
+  # --- Prometheus (Збір метрик) ---
+  prometheus:
+    image: prom/prometheus:latest
+    command: --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./config/prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  # --- Grafana (Візуалізація) ---
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  # --- Elastic Stack (Для логів - Важка частина) ---
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.9
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.17.9
+    command: >
+      apm-server -e
+        -E apm-server.rum.enabled=true
+        -E setup.kibana.host=kibana:5601
+        -E setup.template.settings.index.number_of_replicas=0
+        -E apm-server.kibana.enabled=true
+        -E apm-server.kibana.host=kibana:5601
+        -E output.elasticsearch.hosts=["elasticsearch:9200"]
+    ports:
+      - "8200:8200"
+    depends_on:
+      - elasticsearch
+      - kibana
 
 volumes:
-
   postgres_data:

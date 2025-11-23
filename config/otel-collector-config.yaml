@@ -1,0 +1,40 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+
+exporters:
+  # 1. Для Zipkin (Трейси)
+  zipkin:
+    endpoint: "http://zipkin:9411/api/v2/spans"
+  
+  # 2. Для Prometheus (Метрики)
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+  
+  # 3. Для Elastic APM (Логи і Трейси)
+  otlp/elastic:
+    endpoint: "http://apm-server:8200"
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [zipkin, otlp/elastic]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [prometheus]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp/elastic]

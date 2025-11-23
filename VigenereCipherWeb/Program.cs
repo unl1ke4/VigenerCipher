@@ -1,12 +1,17 @@
 ﻿using Auth0.AspNetCore.Authentication;
 using VigenereCipherWeb.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using Npgsql;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Exporter;
 
 var builder = WebApplication.CreateBuilder(args);
 var dbType = builder.Configuration["DatabaseType"];
-
 
 builder.Services.AddControllersWithViews();
 
@@ -26,20 +31,47 @@ builder.Services.AddVersionedApiExplorer(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo 
-    { 
-        Title = "Vigenere API v1", 
-        Version = "v1" 
-    });
-
-    options.SwaggerDoc("v2", new OpenApiInfo 
-    { 
-        Title = "Vigenere API v2", 
-        Version = "v2" 
-    });
-
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Vigenere API v1", Version = "v1" });
+    options.SwaggerDoc("v2", new OpenApiInfo { Title = "Vigenere API v2", Version = "v2" });
     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 });
+
+const string serviceName = "vigenere-service";
+
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService(serviceName))
+    .WithTracing(tracing => tracing
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .AddNpgsql()
+        .AddSource(serviceName)
+        .AddOtlpExporter(options =>
+        {
+            options.Endpoint = new Uri("http://localhost:4317");
+            options.Protocol = OtlpExportProtocol.Grpc;
+        }))
+    .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .AddRuntimeInstrumentation()
+        .AddOtlpExporter(options =>
+        {
+            options.Endpoint = new Uri("http://localhost:4317");
+            options.Protocol = OtlpExportProtocol.Grpc;
+        }));
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddOpenTelemetry(logging =>
+{
+    logging.IncludeScopes = true;
+    logging.AddOtlpExporter(options =>
+    {
+        options.Endpoint = new Uri("http://localhost:4317");
+        options.Protocol = OtlpExportProtocol.Grpc;
+    });
+});
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -65,11 +97,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services
     .AddAuth0WebAppAuthentication(options =>
     {
-        options.Domain = builder.Configuration["Auth0:Domain"] 
+        options.Domain = builder.Configuration["Auth0:Domain"]
             ?? throw new InvalidOperationException("Auth0:Domain is not configured");
-        options.ClientId = builder.Configuration["Auth0:ClientId"] 
+        options.ClientId = builder.Configuration["Auth0:ClientId"]
             ?? throw new InvalidOperationException("Auth0:ClientId is not configured");
-        options.ClientSecret = builder.Configuration["Auth0:ClientSecret"] 
+        options.ClientSecret = builder.Configuration["Auth0:ClientSecret"]
             ?? throw new InvalidOperationException("Auth0:ClientSecret is not configured");
         options.CallbackPath = new PathString("/callback");
         options.Scope = "openid profile email";
@@ -103,9 +135,7 @@ app.UseSwaggerUI(options =>
 });
 
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -114,4 +144,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
 public partial class Program { }

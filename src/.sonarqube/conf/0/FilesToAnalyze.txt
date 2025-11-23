@@ -1,0 +1,1 @@
+﻿F:\Archive\HW\programming\C#\VigenereCipher\VigenereCipherLib\Model\VigenereModel.cs

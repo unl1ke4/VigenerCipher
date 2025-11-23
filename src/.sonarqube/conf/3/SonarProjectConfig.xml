@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SonarProjectConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/analyzer/2021/1">
+  <AnalysisConfigPath>F:\Archive\HW\programming\C#\VigenereCipher\src\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
+  <ProjectPath>F:\Archive\HW\programming\C#\VigenereCipher\VigenereCipherTests\VigenereCipherTests.csproj</ProjectPath>
+  <FilesToAnalyzePath>F:\Archive\HW\programming\C#\VigenereCipher\src\.sonarqube\conf\3\FilesToAnalyze.txt</FilesToAnalyzePath>
+  <OutPath>F:\Archive\HW\programming\C#\VigenereCipher\src\.sonarqube\out\3</OutPath>
+  <ProjectType>Test</ProjectType>
+  <TargetFramework>net8.0</TargetFramework>
+</SonarProjectConfig>
